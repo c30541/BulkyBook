@@ -23,7 +23,6 @@ namespace BulkyBook.DataAccess.Repository
             if (objFormDb != null)
             {
                 objFormDb.Name = category.Name;
-                _db.SaveChanges();
             }
         }
     }
