@@ -8,22 +8,22 @@ using System.Text;
 
 namespace BulkyBook.DataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
         private readonly ApplicationDbContext _db;
 
-        public CategoryRepository(ApplicationDbContext db) : base(db)
+        public ApplicationUserRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
 
-        public void Update(Category category)
-        {
-            var objFormDb = _db.Categories.FirstOrDefault(s => s.Id == category.Id);
-            if (objFormDb != null)
-            {
-                objFormDb.Name = category.Name;
-            }
-        }
+        //public void Update(ApplicationUser applicationUser)
+        //{
+        //    var objFormDb = _db.Categories.FirstOrDefault(s => s.Id == applicationUser.Id);
+        //    if (objFormDb != null)
+        //    {
+        //        objFormDb.Name = applicationUser.Name;
+        //    }
+        //}
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace BulkyBook.Models.ViewModels
+namespace BulkyBook.Models
 {
     public class Company
     {
