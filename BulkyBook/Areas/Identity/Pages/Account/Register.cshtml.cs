@@ -80,8 +80,10 @@ namespace BulkyBook.Areas.Identity.Pages.Account
             public string PhoneNumber { get; set; }
             public int? CompanyId { get; set; }
             public string Role { get; set; }
+
             public IEnumerable<SelectListItem> CompanyList { get; set; }
             public IEnumerable<SelectListItem> RoleList { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -99,8 +101,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
                 {
                     Text = i,
                     Value = i
-                }),
-
+                })
             };
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -114,7 +115,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser
                 {
-                    UserName = Input.Name,
+                    UserName = Input.Email,
                     Email = Input.Email,
                     CompanyId = Input.CompanyId,
                     StreetAddress = Input.StreetAddress,
@@ -165,7 +166,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
                     //var callbackUrl = Url.Page(
                     //    "/Account/ConfirmEmail",
                     //    pageHandler: null,
-                    //    values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
+                    //    values: new { area = "Identity", userId = user.Id, code = code },
                     //    protocol: Request.Scheme);
 
                     //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
@@ -173,7 +174,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
                     }
                     else
                     {
@@ -184,6 +185,7 @@ namespace BulkyBook.Areas.Identity.Pages.Account
                         }
                         else
                         {
+                            //admin is registering a new user
                             return RedirectToAction("Index", "User", new { Area = "Admin" });
                         }
                     }
