@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css" />
+    <script src="https://js.braintreegateway.com/web/dropin/1.23.0/js/dropin.min.js"></script>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BulkyBook</a>
+                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">BulkyBook</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,9 +27,6 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
                         @if (User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
@@ -54,18 +52,24 @@
                                 </div>
                             </li>
                         }
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
-                            @if (User.IsInRole(SD.Role_Employee) || User.IsInRole(SD.Role_Admin))
-                            {
-                                <span>Manage Order</span>
-                            }
-                            else
-                            {
-                                <span>Order History</span>
-                            }
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">
+                                @if (User.IsInRole(SD.Role_Employee) || User.IsInRole(SD.Role_Admin))
+                                {
+                                    <span>Manage Order</span>
+                                }
+                                else
+                                {
+                                    <span>Order History</span>
+                                }
+                            </a>
+                        </li>
+                        @if (User.IsInRole(SD.Role_Employee) || User.IsInRole(SD.Role_Admin))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="BrainTree" asp-action="Index">BrainTree</a>
+                            </li>
+                        }
                         @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCart) != null)
                         {
                             <li style="color:white">

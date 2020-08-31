@@ -17,6 +17,7 @@ using BulkyBook.DataAccess.Repository;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BulkyBook.Utility;
 using Stripe;
+using Braintree;
 
 namespace BulkyBook
 {
@@ -38,7 +39,9 @@ namespace BulkyBook
             services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddSingleton<IBrainTreeGate, BrainTreeGate>();
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+            services.Configure<BrainTreeSettings>(Configuration.GetSection("BrainTree"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
